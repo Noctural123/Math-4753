@@ -1,0 +1,92 @@
+---
+title: "Using SPRING254753nguy0700"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using SPRING254753nguy0700}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "figures/",
+  dev = "png"
+)
+library(SPRING254753nguy0700)
+```
+
+# Introduction
+
+This vignette introduces the R package `SPRING254753nguy0700`, which provides tools for bootstrapping, normal curve visualization, beta distribution estimation, and simple sampling. Below we demonstrate the four main functions and the included dataset.
+
+# Example Dataset
+
+This package includes a dataset called `fire`. Here's how it looks:
+
+```{r}
+head(fire)
+```
+
+# Function 1: `myboot2()`
+
+This function performs bootstrapping on a numeric vector using a user-defined statistic.
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+x <- rnorm(100)
+boot_means <- myboot2(x, mean, nboot = 1000)
+
+# Make sure it's numeric
+if (is.numeric(boot_means)) {
+  hist(boot_means, main = "Bootstrapped Means", xlab = "Mean", col = "skyblue")
+} else {
+  print("boot_means is not numeric")
+}
+
+```
+
+# Function 2: `myncurve()`
+
+This function visualizes a normal curve and highlights the area to the left of a specific value.
+
+```{r}
+myncurve(mu = 10, sigma = 2, a = 10)
+
+```
+
+# Function 3: `estimate_beta_mle()`
+
+This function estimates the parameters of a beta distribution via maximum likelihood.
+
+```{r}
+beta_sample <- rbeta(100, 2, 5)
+alpha_vals <- seq(1, 5, length.out = 100)
+beta_vals <- seq(1, 5, length.out = 100)
+result <- estimate_beta_mle(beta_sample, alpha = alpha_vals, beta = beta_vals)
+
+# Only print the MLE results
+list(
+  max_alpha = result$maxalpha,
+  max_beta = result$maxbeta,
+  log_likelihood = log(result$maxl)
+)
+
+
+```
+
+# Function 4: `mysample()`
+
+This function takes a sample and returns its mean, standard deviation, and histogram.
+
+```{r}
+mysample(n = 1000, iter = 1, time = 0)
+
+
+```
+
+# Conclusion
+
+This vignette demonstrated how to use the four key functions in `SPRING254753nguy0700` with both simulated and included data. The package provides an easy way to explore basic statistical procedures like bootstrapping and MLE estimation.

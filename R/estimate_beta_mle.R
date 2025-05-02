@@ -4,6 +4,7 @@
 #' \eqn{alpha} and \eqn{beta} of the Beta distribution based on resampled data.
 #'
 #' @param x A numeric vector containing the sample data.
+#' @importFrom stats dbeta
 #' @param alpha A numeric vector of possible \eqn{alpha} values.
 #' @param beta A numeric vector of possible \eqn{beta} values.
 #' @param ... Additional arguments passed to the plot function.

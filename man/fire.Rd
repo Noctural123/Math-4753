@@ -3,25 +3,21 @@
 \docType{data}
 \name{fire}
 \alias{fire}
-\title{FIREDAM Dataset}
+\title{Fire Damage Data}
 \format{
-A data frame with X rows and Y columns:
+A data frame with X rows and 2 variables:
 \describe{
-  \item{DISTANCE}{Distance from the fire station (in miles)}
+  \item{DISTANCE}{Distance to nearest fire station (in miles)}
   \item{DAMAGE}{Amount of fire damage (in thousands of dollars)}
 }
 }
 \source{
-<Provide dataset source if available>
+Collected by a fire insurance company, as described in *Statistics for Engineering and the Sciences* (6th ed.)
 }
 \usage{
 fire
 }
 \description{
-A dataset containing information about fire damage incidents.
-}
-\examples{
-data("fire")
-head(fire)
+A dataset containing observations of fire damage and distance from fire stations.
 }
 \keyword{datasets}

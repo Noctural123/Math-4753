@@ -2,30 +2,27 @@
 % Please edit documentation in R/myboot2.R
 \name{myboot2}
 \alias{myboot2}
-\title{Bootstrap Confidence Interval Function}
+\title{Bootstrapping function}
 \usage{
-myboot2(x, fun = "mean", alpha = 0.05, nboot = 1000, ...)
+myboot2(x, fun, nboot = 1000, ...)
 }
 \arguments{
-\item{x}{A numeric vector of data to bootstrap.}
+\item{x}{A numeric vector.}
 
-\item{fun}{The function to compute the statistic (default: `"mean"`).}
+\item{fun}{A function to apply to each bootstrap sample.}
 
-\item{alpha}{Confidence level (default: `0.05` for 95% CI).}
+\item{nboot}{Number of bootstrap samples. Default is 1000.}
 
-\item{nboot}{Number of bootstrap samples (default: `1000`).}
-
-\item{...}{Additional arguments passed to `fun`.}
+\item{...}{Additional arguments passed to \code{fun}.}
 }
 \value{
-A list containing:
-  - `statistic`: Original statistic.
-  - `CI`: Bootstrap confidence interval.
-  - `boot_stats`: Bootstrap distribution.
+A vector of bootstrap estimates.
 }
 \description{
-Generates bootstrap confidence intervals for a given statistic.
+Performs bootstrap sampling of a statistic from a numeric vector.
 }
 \examples{
-myboot2(x = rnorm(100))
+x <- rnorm(100)
+boot_means <- myboot2(x, mean)
+hist(boot_means)
 }

@@ -1,38 +1,26 @@
-#' Bootstrap Confidence Interval Function
+#' Bootstrapping function
 #'
-#' Generates bootstrap confidence intervals for a given statistic.
+#' Performs bootstrap sampling of a statistic from a numeric vector.
 #'
-#' @param x A numeric vector of data to bootstrap.
-#' @param fun The function to compute the statistic (default: `"mean"`).
-#' @param alpha Confidence level (default: `0.05` for 95% CI).
-#' @param nboot Number of bootstrap samples (default: `1000`).
-#' @param ... Additional arguments passed to `fun`.
+#' @param x A numeric vector.
+#' @param fun A function to apply to each bootstrap sample.
+#' @param nboot Number of bootstrap samples. Default is 1000.
+#' @param ... Additional arguments passed to \code{fun}.
 #'
-#' @return A list containing:
-#'   - `statistic`: Original statistic.
-#'   - `CI`: Bootstrap confidence interval.
-#'   - `boot_stats`: Bootstrap distribution.
-#'
+#' @return A vector of bootstrap estimates.
 #' @examples
-#' myboot2(x = rnorm(100))
+#' x <- rnorm(100)
+#' boot_means <- myboot2(x, mean)
+#' hist(boot_means)
+#' @importFrom stats quantile
 #' @export
-myboot2 <- function(x, fun = "mean", alpha = 0.05, nboot = 1000, ...) {
-  # Calculate original statistic
-  stat <- match.fun(fun)(x, ...)
 
-  # Generate bootstrap samples
-  boot_stats <- replicate(nboot, {
-    x_sample <- sample(x, replace = TRUE)
-    match.fun(fun)(x_sample, ...)
-  })
-
-  # Compute confidence interval
-  ci <- quantile(boot_stats, c(alpha/2, 1 - alpha/2))
-
-  # Return results
-  list(
-    statistic = stat,
-    CI = ci,
-    boot_stats = boot_stats
-  )
+myboot2 <- function(x, fun, nboot = 1000, ...) {
+  n <- length(x)
+  boot_estimates <- numeric(nboot)
+  for (i in 1:nboot) {
+    resample <- sample(x, size = n, replace = TRUE)
+    boot_estimates[i] <- fun(resample, ...)
+  }
+  return(boot_estimates)
 }
